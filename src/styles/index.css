@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  cursor: none !important;
+}
+body {
+  background-color: #0a0a0c;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* This creates the premium grainy texture over the background */
+.bg-noise {
+  position: relative;
+}
+
+.bg-noise::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  /* Using a 100x100px static noise PNG is much lighter than an SVG filter */
+  background-image: url("https://res.cloudinary.com/dn7v9rvp0/image/upload/v1701234567/noise-min.png");
+  background-repeat: repeat;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: overlay;
+}
+@layer utilities {
+  .perspective-\[2000px\] {
+    perspective: 2000px;
+  }
+}
+/* GPU Acceleration Classes */
+.custom-cursor, .background-blob {
+  /* Tells the browser to prepare the GPU for these specific properties */
+  will-change: transform, width, height, opacity;
+  
+  /* Forces the element into its own compositor layer */
+  transform: translateZ(0);
+  
+  /* Improves rendering of blurred edges */
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+/* ========================================== */
+/* CUSTOM CYBER SCROLLBAR                     */
+/* ========================================== */
+
+/* The width of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* The track (background) */
+::-webkit-scrollbar-track {
+  background: #030303;
+  border-left: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* The draggable thumb */
+::-webkit-scrollbar-thumb {
+  background: #111;
+  border: 1px solid rgba(0, 255, 224, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* When hovering over the scrollbar */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 224, 0.2);
+  border: 1px solid #00FFE0;
+  box-shadow: 0 0 10px #00FFE0;
+}
